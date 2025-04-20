@@ -1,0 +1,56 @@
+# roles/apache2/defaults/main.yml
+---
+apache_server_name: "localhost"
+apache_server_admin: "webmaster@localhost"
+apache_document_root: "/var/www/html"
+apache_log_level: "warn"
+apache_error_log: "/var/log/apache2/error.log"
+apache_custom_log: "/var/log/apache2/access.log"
+apache_timeout: 300
+apache_keep_alive: "On"
+apache_max_keep_alive_requests: 100
+apache_keep_alive_timeout: 5
+apache_mime_types:
+  - "text/html html htm"
+  - "text/css css"
+  - "application/javascript js"
+  - "image/jpeg jpg jpeg"
+  - "image/png png"
+  - "image/gif gif"
+apache_modules:
+  - "rewrite"
+  - "headers"
+  - "ssl"
+# apache_ssl_cert_file: "/etc/ssl/certs/apache-selfsigned.crt"
+# apache_ssl_key_file: "/etc/ssl/private/apache-selfsigned.key"
+# apache_ssl_cert_subject: "/C=US/ST=California/L=San Francisco/O=My Company/CN=localhost"
+# apache_ssl_cert_days: 365
+# apache_ssl_cert_key_size: 2048
+# apache_ssl_cert_passphrase: ""
+# apache_ssl_cert_country: "US"
+# apache_ssl_cert_state: "present"
+# apache_ssl_cert_locality: "San Francisco"
+# apache_ssl_cert_organization: "My Company"
+# apache_ssl_cert_organizational_unit: "IT"
+# apache_ssl_cert_common_name: "localhost"
+# apache_ssl_cert_email: "webmaster@localhost"
+# apache_ssl_cert_alternative_names:
+#   - "localhost"
+#   - ""
+# apache_ssl_cert_subject_alternative_name: "DNS:localhost"
+# apache_ssl_cert_extensions:
+#   - "basicConstraints=CA:FALSE"
+#   - "keyUsage=digitalSignature,nonRepudiation,keyEncipherment,dataEncipherment"
+#   - "extendedKeyUsage=serverAuth,clientAuth"
+# apache_ssl_cert_key_usage:
+#   - "digitalSignature"
+#   - "keyEncipherment"
+# apache_ssl_cert_extended_key_usage:
+#   - "serverAuth"
+#   - "clientAuth"
+# apache_ssl_cert_basic_constraints:
+#   - "CA:FALSE"
+# apache_ssl_cert_subject_key_identifier: "hash"
+# apache_ssl_cert_authority_key_identifier: "keyid,issuer"
+# apache_ssl_cert_crl_distribution_points:
+#   - "URI:http://example.com/crl.pem"
