@@ -2,6 +2,7 @@
 ---
 apache_server_name: "localhost"
 apache_server_admin: "webmaster@localhost"
+apache_listen_port: 80
 apache_document_root: "/var/www/html"
 apache_log_level: "warn"
 apache_error_log: "/var/log/apache2/error.log"

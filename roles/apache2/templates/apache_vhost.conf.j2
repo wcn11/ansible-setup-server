@@ -1,21 +1,20 @@
-# roles/apache2/templates/apache_vhost.conf.j2
-<VirtualHost *:80>
+<VirtualHost *:{{ server_port | default('80') }}>
     ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/html
-    ServerName {{ apache_server_name }}
+    ServerName {{ server_name }}
+    DocumentRoot {{ document_root }}
 
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    {% if use_ssl | default(false) %}
+    SSLEngine on
+    SSLCertificateFile {{ ssl_cert_file }}
+    SSLCertificateKeyFile {{ ssl_key_file }}
+    {% endif %}
+
+    <Directory {{ document_root }}>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/{{ server_name }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/{{ server_name }}-access.log combined
 </VirtualHost>
-
-# Proxy configuration for backend server
-#<VirtualHost *:80>
-#    ProxyPreserveHost On
-
-#    ProxyPass / http://127.0.0.1:8080/
-#    ProxyPassReverse / http://127.0.0.1:8080/
-#    ServerName {{ apache_server_name }}
-#    ServerAlias example.co.id
-#    ErrorLog /var/log/apache2/example-error.log
-#    CustomLog /var/log/apache2/example-access.log common
-#</VirtualHost>

@@ -1,0 +1,12 @@
+---
+common_packages:
+  - curl
+  - wget
+  - git
+  - ufw
+  - fail2ban
+  - net-tools
+  - htop
+  - unzip
+
+timezone: Asia/Jakarta

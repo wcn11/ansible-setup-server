@@ -1,7 +1,10 @@
 # playbooks/setup_web_server.yml
 ---
+
 - name: Set up web server
-  hosts: web  # Define the group of servers that should be configured
+  hosts: web
   become: true
+
   roles:
+    - common
     - apache2

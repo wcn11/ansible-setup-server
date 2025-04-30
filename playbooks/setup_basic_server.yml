@@ -1,0 +1,6 @@
+---
+- name: Bootstrap and Secure Server
+  hosts: web
+  become: true
+  roles:
+    - common
