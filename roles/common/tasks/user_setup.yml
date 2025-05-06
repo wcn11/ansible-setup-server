@@ -1,0 +1,17 @@
+# roles/common/tasks/user_setup.yml
+- name: Create user
+  user:
+    name: "{{ admin_user }}"
+    groups: sudo
+    shell: /bin/bash
+    state: present
+    create_home: yes
+  tags: users
+- name: Allow passwordless sudo
+  copy:
+    dest: "/etc/sudoers.d/{{ admin_user }}"
+    content: "{{ admin_user }} ALL=(ALL) NOPASSWD:ALL\n"
+    owner: root
+    group: root
+    mode: '0440'
+  tags: users

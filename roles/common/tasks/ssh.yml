@@ -1,0 +1,15 @@
+- name: Allow SSH through UFW
+  ufw:
+    rule: allow
+    port: ssh
+    proto: tcp
+  become: true
+  when: ansible_os_family == "Debian"
+  tags: ssh
+  
+- name: Add authorized SSH key
+  authorized_key:
+    user: "{{ admin_user }}"
+    state: present
+    key: "{{ ansible_pub_key }}"
+  tags: ssh

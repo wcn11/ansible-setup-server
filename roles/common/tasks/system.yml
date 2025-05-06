@@ -1,0 +1,7 @@
+---
+
+- name: Set timezone
+  timezone:
+    name: "{{ timezone }}"
+  become: true
+  tags: common

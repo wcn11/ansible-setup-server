@@ -1,0 +1,9 @@
+# roles/common/tasks/users.yml
+- name: Ensure admin users exist with SSH and sudo
+  include_tasks: user_setup.yml
+  loop:
+    - "{{ ansible_user }}"
+    - deploy
+  loop_control:
+    loop_var: admin_user
+  tags: users

@@ -1,83 +1,15 @@
 ---
-- name: Update apt cache and upgrade packages
-  apt:
-    update_cache: yes
-    upgrade: dist
-  become: true
-  register: apt_update
-  when: ansible_os_family == "Debian"
-  tags: common
+- import_tasks: packages.yml
+  tags: packages
 
-- name: Install common packages
-  apt:
-    name: "{{ item  }}"
-    state: present
-  loop: "{{ common_packages }}"
-  become: true
-  when: ansible_os_family == "Debian"
-  tags: common
+- import_tasks: users.yml
+  tags: users
 
-- name: Set timezone
-  timezone:
-    name: "{{ timezone }}"
-  become: true
-  tags: common
+# - import_tasks: ssh.yml
+#   tags: ssh
 
-- name: Ensure UFW is installed and enabled
-  ufw:
-    state: enabled
-    policy: allow
-  become: true
-  when: ansible_os_family == "Debian"
-  tags: common
+- import_tasks: ufw.yml
+  tags: firewall
 
-- name: Allow SSH through UFW
-  ufw:
-    rule: allow
-    port: ssh
-    proto: tcp
-  become: true
-  when: ansible_os_family == "Debian"
-  tags: common
-
-- name: Allow HTTP and HTTPS Traffic
-  ufw: 
-    rule: allow
-    name: "{{ item }}"
-    proto: tcp
-  loop:
-    - 80
-    - 443
-  become: true
-  when: ansible_os_family == "Debian"
-  tags: common
-
-- name: Start and enable fail2ban
-  service:
-    name: fail2ban
-    state: started
-    enabled: true
-  become: true
-  when: ansible_os_family == "Debian"
-  tags: common
-
-- name: Ensure user exists
-  user:
-    name: deploy
-    state: present
-    groups: sudo
-    shell: /bin/bash
-
-- name: Add authorized SSH key
-  authorized_key:
-    user: deploy
-    state: present
-    key: "{{ lookup('file', 'roles/common/files/id_rsa.pub') }}"
-
-- name: Allow passwordless sudo
-  copy:
-    dest: "/etc/sudoers.d/deploy"
-    content: "deploy ALL=(ALL) NOPASSWD:ALL\n"
-    owner: root
-    group: root
-    mode: '0440'
+- import_tasks: system.yml
+  tags: system

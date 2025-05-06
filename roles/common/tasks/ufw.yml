@@ -1,0 +1,25 @@
+- name: Ensure UFW is installed and enabled
+  ufw:
+    state: enabled
+    policy: allow
+  become: true
+  when: ansible_os_family == "Debian"
+  tags: firewall
+
+- name: Allow ports through UFW
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  loop: "{{ ufw_allow_ports }}"
+  become: true
+  tags: firewall
+
+- name: Start and enable fail2ban
+  service:
+    name: fail2ban
+    state: started
+    enabled: true
+  become: true
+  when: ansible_os_family == "Debian"
+  tags: firewall

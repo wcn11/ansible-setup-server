@@ -8,5 +8,14 @@ common_packages:
   - net-tools
   - htop
   - unzip
+  - python3
+  - python3-pip
 
 timezone: Asia/Jakarta
+ansible_user: ansible
+ansible_pub_key: "{{ lookup('file', 'roles/common/files/id_rsa.pub') }}"
+
+ufw_allow_ports:
+  - 22
+  - 80
+  - 443
